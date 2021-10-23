@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.caroline.petshop.domain.Categoria;
-import com.caroline.petshop.reposiories.CategoriaRepository;
+import com.caroline.petshop.repositories.CategoriaRepository;
 
 @Service
 public class CategoriaService {
