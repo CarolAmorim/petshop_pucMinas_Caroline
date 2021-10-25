@@ -1,6 +1,5 @@
 package com.caroline.petshop.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-public class Produto implements Serializable {
+public class Produto {
 
     private static final long serialVersionUID = 1L;
 	
@@ -25,14 +22,15 @@ public class Produto implements Serializable {
 	private String nome;
 	private double preco;
 	
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 	           joinColumns = @JoinColumn(name = "id_Produto"),
 	           inverseJoinColumns = @JoinColumn(name = "id_Categoria"))	
-	private List<Categoria> Categorias = new ArrayList<>();	
+	private List<Categoria> Categorias = new ArrayList<>();
+	
 	
 	public Produto() {	}
+
 
 	public Produto(Integer id, String nome, double preco) {
 		super();
@@ -40,7 +38,8 @@ public class Produto implements Serializable {
 		this.nome = nome;
 		this.preco = preco;
 	}
-		
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,6 +47,7 @@ public class Produto implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -96,7 +96,7 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 
-    @JsonIgnore
+
 	public List<Categoria> getCategorias() {
 		return Categorias;
 	}

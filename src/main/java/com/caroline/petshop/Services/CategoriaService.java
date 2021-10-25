@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.caroline.petshop.Services.Exceptions.ObjetoNaoEncontradoException;
 import com.caroline.petshop.domain.Categoria;
 import com.caroline.petshop.repositories.CategoriaRepository;
 
@@ -18,8 +17,7 @@ public class CategoriaService {
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
 		
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
-				"Objeto não encontrado. ID: " + id + ", Tipo: "+ Categoria.class.getName()));
+		return obj.orElse(null);
 	}
 
 }
