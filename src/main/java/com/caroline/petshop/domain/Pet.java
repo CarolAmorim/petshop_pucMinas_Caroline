@@ -1,36 +1,47 @@
 package com.caroline.petshop.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Categoria implements Serializable {
-
+public class Pet implements Serializable {
+	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private Integer idade;
 	
-	@ManyToMany(mappedBy = "Categorias")
-	private List<Produto> Produtos = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "id_especie")
+	private Especie especie;
 	
-    public Categoria() {
-    	
-    }
+	@ManyToOne
+	@JoinColumn(name = "id_raca")
+	private Raca raca;
+	
+	
+	
+	public Pet() {}
 
-	public Categoria(Integer id, String nome) {
+	public Pet(Integer id, String nome, Especie especie, Raca raca, Integer idade) {
 		super();
-		this.setId(id);
-		this.setNome(nome);
+		this.id = id;
+		this.nome = nome;
+		this.especie = especie;
+		this.raca = raca;
+		this.idade = idade;
 	}
 
 
@@ -51,7 +62,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Pet other = (Pet) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -76,13 +87,32 @@ public class Categoria implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Produto> getProdutos() {
-		return Produtos;
+	public Especie getEspecie() {
+		return especie;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		Produtos = produtos;
+	public void setEspecie(Especie especie) {
+		this.especie = especie;
 	}
-    
-    
+
+	public Raca getRaca() {
+		return raca;
+	}
+
+	public void setRaca(Raca raca) {
+		this.raca = raca;
+	}
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
+
+
+	
+	
+
 }
