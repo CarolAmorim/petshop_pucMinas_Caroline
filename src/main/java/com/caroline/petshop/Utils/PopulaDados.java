@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.caroline.petshop.domain.Categoria;
+import com.caroline.petshop.domain.Cidade;
 import com.caroline.petshop.domain.Especie;
+import com.caroline.petshop.domain.Estado;
 import com.caroline.petshop.domain.Pet;
 import com.caroline.petshop.domain.Produto;
 import com.caroline.petshop.domain.Raca;
 import com.caroline.petshop.repositories.CategoriaRepository;
+import com.caroline.petshop.repositories.CidadeRepository;
 import com.caroline.petshop.repositories.EspecieRepository;
+import com.caroline.petshop.repositories.EstadoRepository;
 import com.caroline.petshop.repositories.PetRepository;
 import com.caroline.petshop.repositories.ProdutoRepository;
 import com.caroline.petshop.repositories.RacaRepository;
@@ -40,6 +44,12 @@ public class PopulaDados {
 	@Autowired
 	PetRepository petRepository;
 	
+	@Autowired
+	EstadoRepository estadoRepository;
+	
+	@Autowired
+	CidadeRepository cidadeRepository;
+	
 	@PostConstruct
 	public void cadastrar() {
 		Categoria cat1 = new Categoria(null,"Alimento");
@@ -64,7 +74,7 @@ public class PopulaDados {
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3));	
 		produtoRepository.saveAll(Arrays.asList(prod1,prod2,prod3,prod4));
 			
-		
+		//
 		Especie esp1 = new Especie(null,"Cachorro");
 		Especie esp2 = new Especie(null,"Gato");
 		
@@ -80,6 +90,20 @@ public class PopulaDados {
 		especieRepository.saveAll(Arrays.asList(esp1,esp2));
 		racaRepository.saveAll(Arrays.asList(raca1,raca2,raca3));
 		petRepository.saveAll(Arrays.asList(pet1,pet2,pet3));
+		
+		//
+		Estado uf1 = new Estado(null,"MG");
+		Estado uf2 = new Estado(null,"SP");
+		
+		Cidade cid1 = new Cidade(null,"Belo Horizonte",uf1);
+		Cidade cid2 = new Cidade(null,"Capelinha",uf1);
+		Cidade cid3 = new Cidade(null,"São Paulo",uf2);
+		
+		uf1.getCidades().addAll(Arrays.asList(cid1,cid2));
+		uf2.getCidades().addAll(Arrays.asList(cid3));
+		
+		estadoRepository.saveAll(Arrays.asList(uf1,uf2));
+		cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
 	}
 
 }
