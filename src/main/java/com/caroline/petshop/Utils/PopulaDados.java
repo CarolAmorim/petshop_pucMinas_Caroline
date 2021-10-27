@@ -1,6 +1,5 @@
 package com.caroline.petshop.Utils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
