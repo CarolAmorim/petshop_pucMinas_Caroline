@@ -1,5 +1,6 @@
 package com.caroline.petshop.Utils;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
@@ -9,15 +10,20 @@ import org.springframework.stereotype.Component;
 
 import com.caroline.petshop.domain.Categoria;
 import com.caroline.petshop.domain.Cidade;
+import com.caroline.petshop.domain.Cliente;
+import com.caroline.petshop.domain.Endereco;
 import com.caroline.petshop.domain.Especie;
 import com.caroline.petshop.domain.Estado;
+import com.caroline.petshop.domain.Funcionario;
 import com.caroline.petshop.domain.Pet;
 import com.caroline.petshop.domain.Produto;
 import com.caroline.petshop.domain.Raca;
 import com.caroline.petshop.repositories.CategoriaRepository;
 import com.caroline.petshop.repositories.CidadeRepository;
+import com.caroline.petshop.repositories.EnderecoRepository;
 import com.caroline.petshop.repositories.EspecieRepository;
 import com.caroline.petshop.repositories.EstadoRepository;
+import com.caroline.petshop.repositories.PessoaRepository;
 import com.caroline.petshop.repositories.PetRepository;
 import com.caroline.petshop.repositories.ProdutoRepository;
 import com.caroline.petshop.repositories.RacaRepository;
@@ -49,6 +55,13 @@ public class PopulaDados {
 	
 	@Autowired
 	CidadeRepository cidadeRepository;
+	
+	@Autowired
+	PessoaRepository pessoaRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
+	
 	
 	@PostConstruct
 	public void cadastrar() {
@@ -104,6 +117,21 @@ public class PopulaDados {
 		
 		estadoRepository.saveAll(Arrays.asList(uf1,uf2));
 		cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
+		
+		
+		//
+		Cliente clt1 = new Cliente(null, "Jose Maria", "jose@mail.com", "335.194.320-21", "FISICA");
+		clt1.getTelefone().addAll(Arrays.asList("3516-2000","9191-0000"));
+		
+		Funcionario fnc1 = new Funcionario(null, "Maria Jose", "maria@mail.com", "551.872.200.12", "Tosador");
+		fnc1.getTelefone().addAll(Arrays.asList("3279-0001","9090-0002"));
+		
+		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30111222", clt1, cid1);
+		Endereco end2 = new Endereco(null, "Av. Tamoios", "100", "Casa", "Oca", "3968000", fnc1, cid2);
+		Endereco end3 = new Endereco(null, "Rua Aranãs", "10", "Apto 201", "Centro", "01153000", fnc1, cid3);
+		
+		pessoaRepository.saveAll(Arrays.asList(clt1,fnc1));
+		enderecoRepository.saveAll(Arrays.asList(end1,end2,end3));
 	}
 
 }
