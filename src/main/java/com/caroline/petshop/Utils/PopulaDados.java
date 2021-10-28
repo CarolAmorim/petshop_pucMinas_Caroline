@@ -150,8 +150,9 @@ public class PopulaDados {
 		//
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy HH:mm");
 		
-		Servico srv1 = new Servico(null, sdf.parse("27/10/2021 09:00"), sdf.parse("27/10/2021 12:00"), "tosa", clt1, fnc1);
-		Servico srv2 = new Servico(null, sdf.parse("27/10/2021 09:00"), sdf.parse("28/10/2021 12:00"), "hotel", clt1, fnc1);
+		Servico srv1 = new Servico(null, sdf.parse("27/10/2021 09:00"), sdf.parse("27/10/2021 12:00"), "tosa", clt1, fnc1,pet1);
+		Servico srv2 = new Servico(null, sdf.parse("27/10/2021 09:00"), sdf.parse("28/10/2021 12:00"), "hotel", clt1, fnc1,pet2);
+		Servico srv3 = new Servico(null, sdf.parse("28/10/2021 16:00"), sdf.parse("28/10/2021 16:30"), "vermifugação", clt1, fnc1,pet3);
 		
 				
 		PagCartao pag1 = new PagCartao(null, SituacaoPagamento.QUITADO, 60.00, srv2, 6);
@@ -160,11 +161,17 @@ public class PopulaDados {
 		PagDinheiro pag2 = new PagDinheiro(null, SituacaoPagamento.PENDENTE, 100, sdf.parse("20/10/2021 00:00"), srv1, null);
 		srv1.setPagamento(pag2);
 		
+		PagDinheiro pag3 = new PagDinheiro(null, SituacaoPagamento.QUITADO, 75, sdf.parse("28/10/2021 16:30"), srv3, null);
+		srv3.setPagamento(pag3);
+		
 		clt1.getServicos().addAll(Arrays.asList(srv1,srv2));
 		fnc1.getServicos().addAll(Arrays.asList(srv1,srv2));
-				
-		servicoRepository.saveAll(Arrays.asList(srv1,srv2));
-		pagamentoRepository.saveAll(Arrays.asList(pag1,pag2));
+		
+		srv2.getProdutos().addAll(Arrays.asList(prod1,prod2,prod4));
+		srv3.getProdutos().addAll(Arrays.asList(prod3));		
+		
+		servicoRepository.saveAll(Arrays.asList(srv1,srv2,srv3));
+		pagamentoRepository.saveAll(Arrays.asList(pag1,pag2,pag3));
 	}
 
 }
