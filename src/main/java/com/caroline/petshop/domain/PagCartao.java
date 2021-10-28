@@ -14,7 +14,7 @@ public class PagCartao extends Pagamento {
 		super();
 	}
 
-	public PagCartao(int id, SituacaoPagamento situacao, double valor,Servico servico, Integer parcelas) {
+	public PagCartao(Integer id, SituacaoPagamento situacao, double valor,Servico servico, Integer parcelas) {
 		super(id, situacao, valor, servico);
 		this.parcelas = parcelas;
 	}

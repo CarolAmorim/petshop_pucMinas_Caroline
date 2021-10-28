@@ -3,6 +3,8 @@ package com.caroline.petshop.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -14,15 +16,15 @@ import com.caroline.petshop.domain.enuns.SituacaoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pagamento implements Serializable{
+public abstract class Pagamento implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private int id;	
-	private double valor;
-	
-	private SituacaoPagamento situacao;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;	
+	private double valor;	
+	private Integer situacao;
 	
 	@OneToOne
 	@JoinColumn(name = "id_servico")
@@ -31,10 +33,10 @@ public class Pagamento implements Serializable{
 	
 	public Pagamento() {}
 	
-	public Pagamento(int id, SituacaoPagamento situacao, double valor,Servico servico) {
+	public Pagamento(Integer id, SituacaoPagamento situacao, double valor,Servico servico) {
 		super();
 		this.id = id;
-		this.situacao = situacao;
+		this.situacao = situacao.getCod();
 		this.valor = valor;
 		this.setServico(servico);
 	}
@@ -87,10 +89,10 @@ public class Pagamento implements Serializable{
 		this.id = id;
 	}
 	public SituacaoPagamento getSituacao() {
-		return situacao;
+		return SituacaoPagamento.toEnum(situacao);
 	}
 	public void setSituacao(SituacaoPagamento situacao) {
-		this.situacao = situacao;
+		this.situacao = situacao.getCod();
 	}
 	public double getValor() {
 		return valor;

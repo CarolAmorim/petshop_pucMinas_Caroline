@@ -6,14 +6,14 @@ public enum SituacaoPagamento {
 	CANCELADO(2,"Cancelado"),
 	PENDENTE(3,"Pendente");
 	
-	private int cod;
+	private Integer cod;
 	private String descricao;
 	
 	public int getCod() {
 		return cod;
 	}
 
-	public void setCod(int cod) {
+	public void setCod(Integer cod) {
 		this.cod = cod;
 	}
 
@@ -28,6 +28,11 @@ public enum SituacaoPagamento {
 	private SituacaoPagamento(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
+	}
+
+	public static SituacaoPagamento toEnum(Integer cod) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
