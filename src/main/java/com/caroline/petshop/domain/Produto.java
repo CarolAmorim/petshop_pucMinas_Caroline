@@ -25,13 +25,15 @@ public class Produto implements Serializable{
 	private String nome;
 	private double preco;
 	
-	@JsonIgnore
+	
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
-	           joinColumns = @JoinColumn(name = "id_Produto"),
-	           inverseJoinColumns = @JoinColumn(name = "id_Categoria"))	
-	private List<Categoria> Categorias = new ArrayList<>();
+	           joinColumns = @JoinColumn(name = "id_produto"),
+	           inverseJoinColumns = @JoinColumn(name = "id_categoria"))	
+	private List<Categoria> categorias = new ArrayList<>();
 	
+	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "produtos")
 	private List<Servico> servicos = new ArrayList<>();
 	
@@ -105,13 +107,25 @@ public class Produto implements Serializable{
 
 
 	public List<Categoria> getCategorias() {
-		return Categorias;
+		return categorias;
 	}
 
 
 	public void setCategorias(List<Categoria> categorias) {
-		Categorias = categorias;
+		this.categorias = categorias;
 	}
+
+
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
+	}
+
+
 	
 	
 }

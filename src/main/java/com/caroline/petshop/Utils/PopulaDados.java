@@ -158,10 +158,10 @@ public class PopulaDados {
 		PagCartao pag1 = new PagCartao(null, SituacaoPagamento.QUITADO, 60.00, srv2, 6);
 		srv2.setPagamento(pag1);
 		
-		PagDinheiro pag2 = new PagDinheiro(null, SituacaoPagamento.PENDENTE, 100, sdf.parse("20/10/2021 00:00"), srv1, null);
+		PagDinheiro pag2 = new PagDinheiro(null, SituacaoPagamento.PENDENTE, 100, sdf.parse("20/10/2021 00:00"), srv1, 0.0);
 		srv1.setPagamento(pag2);
 		
-		PagDinheiro pag3 = new PagDinheiro(null, SituacaoPagamento.QUITADO, 75, sdf.parse("28/10/2021 16:30"), srv3, null);
+		PagDinheiro pag3 = new PagDinheiro(null, SituacaoPagamento.QUITADO, 75, sdf.parse("28/10/2021 16:30"), srv3, 0.0);
 		srv3.setPagamento(pag3);
 		
 		clt1.getServicos().addAll(Arrays.asList(srv1,srv2));
