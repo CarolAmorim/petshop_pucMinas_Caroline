@@ -1,10 +1,13 @@
 package com.caroline.petshop.Services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.caroline.petshop.Services.exceptions.DataIntegrityException;
 import com.caroline.petshop.Services.exceptions.ObjetoNaoEncontradoException;
 import com.caroline.petshop.domain.Pessoa;
 import com.caroline.petshop.repositories.PessoaRepository;
@@ -20,6 +23,30 @@ public class PessoaService {
 		
 		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException(
 				"Objeto não encontrado. ID: "+ id + ", tipo: " + Pessoa.class.getName()));
+	}
+	
+	public Pessoa insert(Pessoa obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Pessoa update(Pessoa obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Pessoa não pode ser deletada.");
+		}
+		
+	}
+
+	public List<Pessoa> findAll() {
+		return repo.findAll();
 	}
 
 }
