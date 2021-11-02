@@ -2,6 +2,7 @@ package com.caroline.petshop.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.caroline.petshop.Services.ServicoService;
 import com.caroline.petshop.domain.Servico;
+import com.caroline.petshop.dto.ServicoDTO;
 
 @RestController
 @RequestMapping(value = "/servicos")
@@ -55,10 +57,10 @@ public class ServicoResource {
 	}
 		
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Servico>> findAll() {
+	public ResponseEntity<List<ServicoDTO>> findAll() {
 		
 		List<Servico> list = service.findAll();
-				
-		return ResponseEntity.ok().body(list);
+		List<ServicoDTO> listDTO = list.stream().map(obj -> new ServicoDTO(obj)).collect(Collectors.toList()); 			
+		return ResponseEntity.ok().body(listDTO);
 	}
 }

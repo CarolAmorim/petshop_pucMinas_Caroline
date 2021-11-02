@@ -2,6 +2,7 @@ package com.caroline.petshop.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.caroline.petshop.Services.PessoaService;
 import com.caroline.petshop.domain.Pessoa;
+import com.caroline.petshop.dto.PessoaDTO;
 
 @RestController
 @RequestMapping(value = "/pessoas")
@@ -25,8 +27,7 @@ public class PessoaResource {
 	@RequestMapping(value = "/{id}",method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Pessoa obj = service.find(id);
-				
+		Pessoa obj = service.find(id);				
 		return ResponseEntity.ok().body(obj);
 	}
 	
@@ -49,16 +50,15 @@ public class PessoaResource {
 	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		
-		service.delete(id);
-				
+		service.delete(id);				
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Pessoa>> findAll() {
+	public ResponseEntity<List<PessoaDTO>> findAll() {
 		
-		List<Pessoa> list = service.findAll();
-				
-		return ResponseEntity.ok().body(list);
+		List<Pessoa> list = service.findAll();	
+		List<PessoaDTO> listDTO = list.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList()); 
+		return ResponseEntity.ok().body(listDTO);
 	}
 }
